@@ -1,6 +1,6 @@
 import java.text.SimpleDateFormat
-fun readLineTrim() = readLine()!!.trim()
 
+fun readLineTrim() = readLine()!!.trim()
 
 
 object Util {

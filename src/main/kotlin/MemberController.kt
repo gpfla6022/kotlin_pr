@@ -1,15 +1,15 @@
-class MembersController {
+class MemberController {
     fun join() {
-
         print("아이디: ")
         val memId = readLineTrim()
 
-        val isJoinableId = membersRepository.isJoinableId(memId)
+        val isJoinableIb = memberRepository.isJoinableId(memId)
 
-        if(isJoinableId == false){
+        if(!isJoinableIb){
             println("이미 존재하는 아이디 입니다.")
             return
         }
+
 
         print("비밀번호: ")
         val memPw = readLineTrim()
@@ -22,39 +22,39 @@ class MembersController {
         print("이메일: ")
         val memEmail = readLineTrim()
 
-        val memIndex = membersRepository.addMember(memId, memPw, memName, memNick, memPh, memEmail)
+        val memIndex = memberRepository.addMember(memId, memPw, memName, memNick, memPh, memEmail)
 
+        println("$memIndex 번 째 회원님 환영합니다!")
     }
 
-    fun login(){
-
+    fun login() {
         print("아이디: ")
         val userId = readLineTrim()
 
-        val compareId = membersRepository.getMemberId(userId)
+        val memIndex = memberRepository.getMemberId(userId)
 
-        if(compareId == null){
-            println("해당 아이디는 존재하지 않습니다.")
+        if( memIndex == null){
+            println("존재하지 않는 아이디 입니다.")
             return
         }
 
         print("비밀번호: ")
         val userPw = readLineTrim()
 
-        if(compareId.memPw != userPw){
-            println("비밀번호가 틀렸습니다.")
+        if (memIndex.memPw != userPw){
+            println("비밀번호를 다시 확인해 주세요.")
             return
         }
 
-        logonMember = compareId
+        logonMember = memIndex
 
-        println("${compareId.memNick}님 환영합니다.")
+        println("${memIndex.memNick}님 환영합니다.")
 
     }
 
     fun logout() {
         logonMember = null
-        println("로그아웃이 되었습니다.")
+        println("정상적으로 로그아웃이 되셨습니다,")
     }
 
 
