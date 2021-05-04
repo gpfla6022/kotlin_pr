@@ -1,5 +1,6 @@
 val memberRepository = MemberRepository()
 val articleRepository = ArticleRepository()
+val boardRepository = BoardRepository()
 var logonMember: Member? = null
 
 fun main(){
@@ -7,6 +8,9 @@ fun main(){
     val systemController = SystemController()
     val memberController = MemberController()
     val articleController = ArticleController()
+    val boardController = BoardController()
+
+    boardRepository.testBoardMake()
 
 
     println("==SIMPLE SSG 시작 ==")
@@ -53,70 +57,17 @@ fun main(){
             "/article/list" -> {
                 articleController.list(rq)
             }
-            else ->{
-                println("존재하지 않는 명령어 입니다.")
+            "/board/add" -> {
+                boardController.add()
             }
-
-        }
-    }
-
-
-
-    println("==SIMPLE SSG 끝 ==")
-}val memberRepository = MemberRepository()
-val articleRepository = ArticleRepository()
-var logonMember: Member? = null
-
-fun main(){
-
-    val systemController = SystemController()
-    val memberController = MemberController()
-    val articleController = ArticleController()
-
-
-    println("==SIMPLE SSG 시작 ==")
-
-    while (true){
-
-        val prompt = if(logonMember == null){
-            "prompt) "
-        } else {
-            "${logonMember!!.memNick}) "
-        }
-
-        print(prompt)
-        val command = readLineTrim()
-
-        val rq = Rq(command)
-
-        when (rq.actionPath){
-            "/system/exit" -> {
-                systemController.exit()
-                break
+            "/board/delete" -> {
+                boardController.delete(rq)
             }
-            "/member/join" -> {
-                memberController.join()
+            "/board/modify" -> {
+                boardController.modify(rq)
             }
-            "/member/login" -> {
-                memberController.login()
-            }
-            "/member/logout" -> {
-                memberController.logout()
-            }
-            "/article/write" -> {
-                articleController.write()
-            }
-            "/article/delete" -> {
-                articleController.delete(rq)
-            }
-            "/article/modify" -> {
-                articleController.modify(rq)
-            }
-            "/article/detail" -> {
-                articleController.detail(rq)
-            }
-            "/article/list" -> {
-                articleController.list(rq)
+            "/board/list" ->{
+                boardController.list(rq)
             }
             else ->{
                 println("존재하지 않는 명령어 입니다.")
